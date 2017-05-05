@@ -7,7 +7,7 @@ task copyTestResources(type: Copy) {
 processTestResources.dependsOn copyTestResources
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
 
     compile(project(':api'), {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -15,7 +15,9 @@ dependencies {
 
     compile 'com.squareup:javapoet:1.8.0'
     compile 'com.google.auto.service:auto-service:1.0-rc3'
-    compile 'com.google.android:android:4.1.1.4'
+    compile('com.birbit:android-priority-jobqueue:2.0.1', {
+        exclude group: 'com.android.support', module: 'support-v4'
+    })
 
     testCompile 'junit:junit:4.12'
     testCompile 'com.google.truth:truth:0.30'

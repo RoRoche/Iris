@@ -1,4 +1,4 @@
-package fr.guddy.iris.api;
+package fr.guddy.iris.library;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -6,8 +6,6 @@ import android.support.annotation.Nullable;
 import com.birbit.android.jobqueue.Job;
 import com.birbit.android.jobqueue.Params;
 import com.birbit.android.jobqueue.RetryConstraint;
-
-import java.io.IOException;
 
 public abstract class AbstractQuery extends Job {
 
@@ -56,7 +54,7 @@ public abstract class AbstractQuery extends Job {
     //endregion
 
     //region Method to override
-    protected abstract void execute() throws IOException;
+    protected abstract void execute() throws Throwable;
     protected abstract void onQueryDidFinish();
     //endregion
 }

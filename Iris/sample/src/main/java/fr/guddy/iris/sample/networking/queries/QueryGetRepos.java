@@ -6,12 +6,11 @@ import com.birbit.android.jobqueue.Params;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.IOException;
 import java.util.List;
 
-import fr.guddy.iris.api.AbstractQuery;
 import fr.guddy.iris.api.annotations.Query;
 import fr.guddy.iris.api.annotations.Result;
+import fr.guddy.iris.library.AbstractQuery;
 import fr.guddy.iris.sample.IrisApplication;
 import fr.guddy.iris.sample.networking.ApiService;
 import fr.guddy.iris.sample.networking.dto.RepoDTO;
@@ -42,7 +41,7 @@ public class QueryGetRepos extends AbstractQuery {
 
     //region Overridden methods from AbstractQuery
     @Override
-    protected void execute() throws IOException {
+    protected void execute() throws Throwable {
         IrisApplication.getInstance()
                 .getApplicationComponent()
                 .inject(this);

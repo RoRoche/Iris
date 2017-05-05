@@ -49,6 +49,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-jackson:2.2.0'
 
     compile project(':api')
+    compile project(':library')
     apt project(':compiler')
 
     testCompile 'junit:junit:4.12'
