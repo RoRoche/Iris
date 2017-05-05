@@ -1,4 +1,4 @@
-package fr.guddy.iris.test;
+package assets;
 
 import fr.guddy.iris.api.annotations.Query;
 import fr.guddy.iris.api.annotations.Result;

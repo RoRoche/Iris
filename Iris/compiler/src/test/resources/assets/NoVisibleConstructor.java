@@ -1,4 +1,4 @@
-package fr.guddy.iris.test;
+package assets;
 
 import java.io.IOException;
 

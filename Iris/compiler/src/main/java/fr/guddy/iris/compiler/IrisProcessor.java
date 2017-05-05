@@ -15,7 +15,6 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.TypeElement;
 
 import fr.guddy.iris.api.annotations.Query;
-import fr.guddy.iris.api.annotations.Result;
 
 @AutoService(Processor.class)
 public class IrisProcessor extends AbstractProcessor {
@@ -36,7 +35,6 @@ public class IrisProcessor extends AbstractProcessor {
     public Set<String> getSupportedAnnotationTypes() {
         final Set<String> lAnnotations = new HashSet<>();
         lAnnotations.add(Query.class.getCanonicalName());
-        lAnnotations.add(Result.class.getCanonicalName());
         return lAnnotations;
     }
 
