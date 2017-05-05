@@ -1,0 +1,59 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.jakewharton.hugo'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+
+    defaultConfig {
+        applicationId "fr.guddy.iris.sample"
+        minSdkVersion 23
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    // event bus
+    compile 'org.greenrobot:eventbus:3.0.0'
+    // retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    // dagger
+    compile 'com.google.dagger:dagger:2.10'
+    apt 'com.google.dagger:dagger-compiler:2.10'
+    provided 'javax.annotation:jsr250-api:1.0'
+    // jackson
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.8'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.8.8'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.8.8'
+    // retrofit + jackson
+    compile 'com.squareup.retrofit2:converter-jackson:2.2.0'
+
+    compile project(':api')
+    apt project(':compiler')
+
+    testCompile 'junit:junit:4.12'
+
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+}

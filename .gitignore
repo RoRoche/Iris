@@ -38,3 +38,9 @@ captures/
 
 # Keystore files
 *.jks
+
+.DS_Store
+
+Iris/gradlew
+
+*.bat
