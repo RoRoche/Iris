@@ -5,7 +5,6 @@ import com.google.testing.compile.JavaSourcesSubjectFactory;
 
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 import javax.tools.JavaFileObject;
@@ -15,17 +14,6 @@ import fr.guddy.iris.compiler.IrisProcessor;
 import static com.google.common.truth.Truth.assert_;
 
 public class IrisProcessorTest {
-    @Test
-    public void no_visible_constructor() throws IOException {
-        final JavaFileObject lInput = JavaFileObjects.forResource("assets/NoVisibleConstructor.java");
-
-        assert_()
-                .about(JavaSourcesSubjectFactory.javaSources())
-                .that(Arrays.asList(lInput))
-                .processedWith(new IrisProcessor())
-                .failsToCompile()
-                .withErrorContaining("no visible constructor");
-    }
 
     @Test
     public void query_with_param_and_result() {
