@@ -4,10 +4,10 @@ ext {
     orgName = 'guddy'
     bintrayRepo = 'maven'
     bintrayName = 'iris'
-    versionName = '0.0.1'
+    versionName = '0.0.2'
 
-    publishedGroupId = 'fr.guddy.iris'
-    libraryName = 'Iris'
+    publishedGroupId = 'fr.guddy'
+    libraryName = 'iris'
     artifact = 'iris'
 
     libraryDescription = 'Convenient wrapper library to perform network queries using Retrofit and Android Priority Job Queue (Job Manager)'
@@ -15,7 +15,7 @@ ext {
     siteUrl = 'https://github.com/RoRoche/Iris'
     gitUrl = 'https://github.com:RoRoche/Iris.git'
 
-    libraryVersion = '0.0.1'
+    libraryVersion = '0.0.2'
 
     developerId = 'RoRoche'
     developerName = 'Romain Rochegude'

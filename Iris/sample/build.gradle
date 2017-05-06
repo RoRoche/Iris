@@ -54,8 +54,8 @@ dependencies {
     // logger
     compile 'com.orhanobut:logger:1.15'
 
-    compile project(':iris')
-//    compile 'fr.guddy.iris:iris:0.0.1'
+//    compile project(':iris')
+    compile 'fr.guddy.iris:iris:0.0.2'
 
     testCompile 'junit:junit:4.12'
 
