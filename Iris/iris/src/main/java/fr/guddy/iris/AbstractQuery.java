@@ -1,4 +1,4 @@
-package fr.guddy.iris.library;
+package fr.guddy.iris;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

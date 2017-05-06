@@ -1,4 +1,4 @@
-package fr.guddy.iris.library;
+package fr.guddy.iris;
 
 public abstract class AbstractEventQueryDidFinish<QueryType> {
     //region Fields

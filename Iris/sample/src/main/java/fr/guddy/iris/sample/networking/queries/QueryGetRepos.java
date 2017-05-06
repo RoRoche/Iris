@@ -11,7 +11,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import fr.guddy.iris.library.AbstractEventQueryDidFinish;
-import fr.guddy.iris.library.AbstractQuery;
+import fr.guddy.iris.AbstractQuery;
 import fr.guddy.iris.sample.IrisApplication;
 import fr.guddy.iris.sample.networking.ApiService;
 import fr.guddy.iris.sample.networking.dto.RepoDTO;

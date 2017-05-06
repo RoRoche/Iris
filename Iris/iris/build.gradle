@@ -2,8 +2,9 @@ apply plugin: 'com.android.library'
 
 ext {
     orgName = 'guddy'
-    bintrayRepo = 'RoRoche'
-    bintrayName = 'Iris'
+    bintrayRepo = 'maven'
+    bintrayName = 'iris'
+    versionName = '0.0.1'
 
     publishedGroupId = 'fr.guddy.iris'
     libraryName = 'Iris'
@@ -12,7 +13,7 @@ ext {
     libraryDescription = 'Convenient wrapper library to perform network queries using Retrofit and Android Priority Job Queue (Job Manager)'
 
     siteUrl = 'https://github.com/RoRoche/Iris'
-    gitUrl = 'git@github.com:RoRoche/Iris.git'
+    gitUrl = 'https://github.com:RoRoche/Iris.git'
 
     libraryVersion = '0.0.1'
 

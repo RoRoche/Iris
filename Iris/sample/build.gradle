@@ -29,7 +29,7 @@ android {
 
 repositories {
     maven {
-        url 'https://dl.bintray.com/guddy/RoRoche/'
+        url 'https://dl.bintray.com/guddy/maven/'
     }
 }
 
@@ -54,7 +54,7 @@ dependencies {
     // logger
     compile 'com.orhanobut:logger:1.15'
 
-    compile project(':library')
+    compile project(':iris')
 //    compile 'fr.guddy.iris:iris:0.0.1'
 
     testCompile 'junit:junit:4.12'
