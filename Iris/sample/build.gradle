@@ -27,6 +27,12 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url 'https://dl.bintray.com/guddy/RoRoche/'
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -49,6 +55,7 @@ dependencies {
     compile 'com.orhanobut:logger:1.15'
 
     compile project(':library')
+//    compile 'fr.guddy.iris:iris:0.0.1'
 
     testCompile 'junit:junit:4.12'
 
