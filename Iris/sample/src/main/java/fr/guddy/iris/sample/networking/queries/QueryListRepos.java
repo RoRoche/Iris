@@ -18,18 +18,18 @@ public class QueryListRepos extends AbstractQueryListRepos {
 
     //region Overridden methods from AbstractQueryListRepos
     @Override
+    protected ApiService getApiService() {
+        return IrisApplication.getInstance()
+                .getApplicationComponent()
+                .apiService();
+    }
+
+    @Override
     protected void onQueryDidFinish() {
         IrisApplication.getInstance()
                 .getApplicationComponent()
                 .eventBus()
                 .post(new EventQueryListReposDidFinish(this));
-    }
-
-    @Override
-    protected ApiService getApiService() {
-        return IrisApplication.getInstance()
-                .getApplicationComponent()
-                .apiService();
     }
     //endregion
 }

@@ -6,7 +6,7 @@ ext {
     bintrayName = 'iris'
     versionName = '0.0.2'
 
-    publishedGroupId = 'fr.guddy'
+    publishedGroupId = 'fr.guddy.iris'
     libraryName = 'compiler'
     artifact = 'compiler'
 

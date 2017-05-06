@@ -56,7 +56,8 @@ dependencies {
 
 //    compile project(':iris')
     compile 'fr.guddy.iris:iris:0.0.2'
-    apt project(':compiler')
+//    apt project(':compiler')
+    apt 'fr.guddy.iris:compiler:0.0.2'
 
     testCompile 'junit:junit:4.12'
 

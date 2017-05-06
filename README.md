@@ -19,6 +19,7 @@ repositories {
 
 dependencies {
     compile 'fr.guddy.iris:iris:0.0.2'
+    annotationProcessor 'fr.guddy.iris:compiler:0.0.2'
 }
 ```
 
@@ -78,18 +79,18 @@ public class QueryListRepos extends AbstractQueryListRepos {
     }
 
     @Override
+    protected ApiService getApiService() {
+        return IrisApplication.getInstance()
+                .getApplicationComponent()
+                .apiService();
+    }
+
+    @Override
     protected void onQueryDidFinish() {
         IrisApplication.getInstance()
                 .getApplicationComponent()
                 .eventBus()
                 .post(new EventQueryListReposDidFinish(this));
-    }
-
-    @Override
-    protected ApiService getApiService() {
-        return IrisApplication.getInstance()
-                .getApplicationComponent()
-                .apiService();
     }
 }
 ```
