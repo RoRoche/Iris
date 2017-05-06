@@ -1,1 +1,1 @@
-include ':sample', ':iris'
+include ':sample', ':iris', ':compiler'

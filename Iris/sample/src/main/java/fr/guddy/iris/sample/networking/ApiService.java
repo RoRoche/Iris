@@ -11,5 +11,5 @@ import retrofit2.http.Path;
 
 public interface ApiService {
     @GET("users/{user}/repos")
-    Call<List<RepoDTO>> listRepos(@NonNull @Path("user") final String pUser);
+    Call<List<RepoDTO>> listRepos(@NonNull @Path("user") final String user);
 }

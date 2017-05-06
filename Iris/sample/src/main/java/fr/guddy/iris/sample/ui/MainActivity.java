@@ -16,7 +16,8 @@ import javax.inject.Inject;
 import fr.guddy.iris.sample.BuildConfig;
 import fr.guddy.iris.sample.IrisApplication;
 import fr.guddy.iris.sample.R;
-import fr.guddy.iris.sample.networking.queries.QueryGetRepos;
+import fr.guddy.iris.sample.networking.AbstractQueryListRepos;
+import fr.guddy.iris.sample.networking.queries.QueryListRepos;
 import hugo.weaving.DebugLog;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        jobManager.addJobInBackground(new QueryGetRepos("RoRoche"));
+        jobManager.addJobInBackground(new QueryListRepos("RoRoche"));
     }
 
     @Override
@@ -64,9 +65,9 @@ public class MainActivity extends AppCompatActivity {
     //region Event management
     @DebugLog
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(@NonNull final QueryGetRepos.EventQueryGetReposDidFinish pEvent) {
+    public void onMessageEvent(@NonNull final AbstractQueryListRepos.EventQueryListReposDidFinish pEvent) {
         if (BuildConfig.DEBUG && DEBUG) {
-            Logger.t(TAG).d("%s", pEvent.query.getRepos());
+            Logger.t(TAG).d("%s", pEvent.query.getResult());
         }
     }
     //endregion

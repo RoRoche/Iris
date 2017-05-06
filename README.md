@@ -22,7 +22,79 @@ dependencies {
 }
 ```
 
-## How to use
+## How to use compiler
+
+- Create your retrofit interface as usual
+
+```java
+public interface ApiService {
+    @GET("users/{user}/repos")
+    Call<List<RepoDTO>> listRepos(@NonNull @Path("user") final String user);
+}
+```
+
+- The annotation processor will generate the following class:
+
+```java
+public abstract class AbstractQueryListRepos extends AbstractQuery {
+  public final String user;
+
+  private transient List<RepoDTO> mResult;
+
+  protected AbstractQueryListRepos(final Params params, final String user) {
+    super(params);
+    this.user = user;
+  }
+
+  public List<RepoDTO> getResult() {
+    return mResult;
+  }
+
+  @Override
+  protected void execute() throws Throwable {
+    mResult = getApiService().listRepos(user).execute().body();}
+
+  @Override
+  protected void onQueryDidFinish() {
+  }
+
+  protected abstract ApiService getApiService();
+
+  public static final class EventQueryListReposDidFinish extends AbstractEventQueryDidFinish<AbstractQueryListRepos> {
+    public EventQueryListReposDidFinish(final AbstractQueryListRepos query) {
+      super(query);
+    }
+  }
+}
+```
+
+- now just subclass `AbstractQueryListRepos` as follows to provide the `ApiService` instance and deal with query ending:
+
+```java
+public class QueryListRepos extends AbstractQueryListRepos {
+
+    public QueryListRepos(@NonNull final String pUser) {
+        super(new Params(1), pUser);
+    }
+
+    @Override
+    protected void onQueryDidFinish() {
+        IrisApplication.getInstance()
+                .getApplicationComponent()
+                .eventBus()
+                .post(new EventQueryListReposDidFinish(this));
+    }
+
+    @Override
+    protected ApiService getApiService() {
+        return IrisApplication.getInstance()
+                .getApplicationComponent()
+                .apiService();
+    }
+}
+```
+
+## How to use `AbstractQuery` standalone
 
 - Subclass `AbstractQuery`
 
@@ -68,6 +140,10 @@ jobManager.addJobInBackground(new QueryGetRepos("RoRoche"));
 
 - DI ready
 - Event-buses ready
+
+## TODO
+
+- support `@POST` and `@PUT` from retrofit
 
 ## Logo credits
 
