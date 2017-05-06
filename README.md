@@ -2,6 +2,8 @@
 
 Convenient wrapper library to perform network queries using Retrofit and Android Priority Job Queue (Job Manager)
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Iris-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/5703)
+
 **STILL IN DEVELOPMENT**
 
 ![logo](https://raw.githubusercontent.com/RoRoche/Iris/master/assets/logo.png)
