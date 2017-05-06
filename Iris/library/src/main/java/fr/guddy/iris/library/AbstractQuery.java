@@ -7,10 +7,14 @@ import com.birbit.android.jobqueue.Job;
 import com.birbit.android.jobqueue.Params;
 import com.birbit.android.jobqueue.RetryConstraint;
 
+import java.net.HttpURLConnection;
+
+import retrofit2.Response;
+
 public abstract class AbstractQuery extends Job {
 
     //region Fields
-    private Throwable mThrowable;
+    protected Throwable mThrowable;
     //endregion
 
     //region Constructor
@@ -24,21 +28,10 @@ public abstract class AbstractQuery extends Job {
     public void onAdded() {
     }
 
-    /**
-     * Default behavior that can be overridden if needed (to not catch {@link Throwable} for example).
-     *
-     * @throws Throwable that can occurs during the execute method call.
-     */
     @Override
     public void onRun() throws Throwable {
-        try {
-            execute();
-        } catch (final Throwable lThrowable) {
-            mThrowable = lThrowable;
-        }
-
+        execute();
         onQueryDidFinish();
-
     }
 
     @Override
@@ -53,8 +46,29 @@ public abstract class AbstractQuery extends Job {
     }
     //endregion
 
+    //region Protected helper method
+    protected <T> boolean isCached(@NonNull final Response<T> poResponse) {
+        if (poResponse.isSuccessful() &&
+                (
+                        (poResponse.raw().networkResponse() != null && poResponse.raw().networkResponse().code() == HttpURLConnection.HTTP_NOT_MODIFIED)
+                                ||
+                                (poResponse.raw().networkResponse() == null && poResponse.raw().cacheResponse() != null))
+                ) {
+            return true;
+        }
+        return false;
+    }
+    //endregion
+
     //region Method to override
     protected abstract void execute() throws Throwable;
+
     protected abstract void onQueryDidFinish();
+    //endregion
+
+    //region Getters
+    public Throwable getThrowable() {
+        return mThrowable;
+    }
     //endregion
 }

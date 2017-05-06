@@ -35,8 +35,6 @@ dependencies {
 
     // event bus
     compile 'org.greenrobot:eventbus:3.0.0'
-    // retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.2.0'
     // dagger
     compile 'com.google.dagger:dagger:2.10'
     apt 'com.google.dagger:dagger-compiler:2.10'
@@ -47,10 +45,10 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.8.8'
     // retrofit + jackson
     compile 'com.squareup.retrofit2:converter-jackson:2.2.0'
+    // logger
+    compile 'com.orhanobut:logger:1.15'
 
-    compile project(':api')
     compile project(':library')
-    apt project(':compiler')
 
     testCompile 'junit:junit:4.12'
 

@@ -25,6 +25,9 @@ dependencies {
 
     compile 'com.android.support:support-annotations:25.3.1'
 
+    // retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    // priority-job-queue
     compile('com.birbit:android-priority-jobqueue:2.0.1', {
         exclude group: 'com.android.support', module: 'support-v4'
     })

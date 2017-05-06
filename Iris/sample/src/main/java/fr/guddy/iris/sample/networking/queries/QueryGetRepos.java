@@ -8,14 +8,14 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-import fr.guddy.iris.api.annotations.Query;
-import fr.guddy.iris.api.annotations.Result;
+import javax.inject.Inject;
+
+import fr.guddy.iris.library.AbstractEventQueryDidFinish;
 import fr.guddy.iris.library.AbstractQuery;
 import fr.guddy.iris.sample.IrisApplication;
 import fr.guddy.iris.sample.networking.ApiService;
 import fr.guddy.iris.sample.networking.dto.RepoDTO;
 
-@Query
 public class QueryGetRepos extends AbstractQuery {
 
     //region Query parameters
@@ -23,13 +23,14 @@ public class QueryGetRepos extends AbstractQuery {
     //endregion
 
     //region Injected fields
+    @Inject
     transient public ApiService apiService;
+    @Inject
     transient public EventBus eventBus;
     //endregion
 
     //region Results
-    @Result
-    private List<RepoDTO> mRepos;
+    transient private List<RepoDTO> mRepos;
     //endregion
 
     //region Constructor
@@ -50,7 +51,19 @@ public class QueryGetRepos extends AbstractQuery {
 
     @Override
     protected void onQueryDidFinish() {
-        // TODO
+        eventBus.post(new EventQueryGetReposDidFinish(this));
+    }
+    //endregion
+
+    //region Result
+    public List<RepoDTO> getRepos() {
+        return mRepos;
+    }
+
+    public static final class EventQueryGetReposDidFinish extends AbstractEventQueryDidFinish<QueryGetRepos> {
+        public EventQueryGetReposDidFinish(final QueryGetRepos pQuery) {
+            super(pQuery);
+        }
     }
     //endregion
 }

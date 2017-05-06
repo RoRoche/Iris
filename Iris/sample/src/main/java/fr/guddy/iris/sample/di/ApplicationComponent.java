@@ -15,5 +15,6 @@ import fr.guddy.iris.sample.ui.MainActivity;
 @Component(modules = {ApplicationModule.class, NetworkingModule.class, BusModule.class})
 public interface ApplicationComponent {
     void inject(@NonNull final MainActivity pTarget);
+
     void inject(@NonNull final QueryGetRepos pTarget);
 }

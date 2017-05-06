@@ -1,15 +1,13 @@
-package fr.guddy.iris.api;
+package fr.guddy.iris.library;
 
 public abstract class AbstractEventQueryDidFinish<QueryType> {
     //region Fields
     public final QueryType query;
-    public final Throwable throwable;
     //endregion
 
     //region Constructor
-    public AbstractEventQueryDidFinish(final QueryType pQuery, final Throwable pThrowable) {
+    public AbstractEventQueryDidFinish(final QueryType pQuery) {
         query = pQuery;
-        throwable = pThrowable;
     }
     //endregion
 }

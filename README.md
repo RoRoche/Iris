@@ -1,23 +1,10 @@
 # Iris
 
-Android annotation processor to perform network queries
+Convenient wrapper library to perform network queries using Retrofit and Android Priority Job Queue (Job Manager)
 
 **STILL UNDER DEVELOPMENT**
 
-## Annotations
-
-- `Query`: annotate a query class
-    - generate an associated event class
-    - add the query to the generated query factory
-- `Result`: annotate fields of a query class
-    - populate the associated event class with the considered field
-
-## Benefits
-
-- `AbstractQuery` is usable standalone (i.e., can be subclassed and used without `@Query` and `@Result`)
-- default behavior of the `AbstractQuery` class can be overridden
-- Event-bus ready
-- DI ready
+![logo](https://raw.githubusercontent.com/RoRoche/Iris/master/assets/logo.png)
 
 ## Logo credits
 
