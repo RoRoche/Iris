@@ -20,8 +20,8 @@ repositories {
 }
 
 dependencies {
-    compile 'fr.guddy.iris:iris:0.0.3'
-    annotationProcessor 'fr.guddy.iris:compiler:0.0.3'
+    compile 'fr.guddy.iris:iris:0.0.4'
+    annotationProcessor 'fr.guddy.iris:compiler:0.0.4'
 }
 ```
 

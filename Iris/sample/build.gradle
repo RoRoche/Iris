@@ -54,10 +54,10 @@ dependencies {
     // logger
     compile 'com.orhanobut:logger:1.15'
 
-    compile project(':iris')
-//    compile 'fr.guddy.iris:iris:0.0.3'
-    apt project(':compiler')
-//    apt 'fr.guddy.iris:compiler:0.0.3'
+//    compile project(':iris')
+    compile 'fr.guddy.iris:iris:0.0.4'
+//    apt project(':compiler')
+    apt 'fr.guddy.iris:compiler:0.0.4'
 
     testCompile 'junit:junit:4.12'
 

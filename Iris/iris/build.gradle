@@ -4,9 +4,9 @@ ext {
     orgName = 'guddy'
     bintrayRepo = 'maven'
     bintrayName = 'iris'
-    versionName = '0.0.3'
+    versionName = '0.0.4'
 
-    publishedGroupId = 'fr.guddy'
+    publishedGroupId = 'fr.guddy.iris'
     libraryName = 'iris'
     artifact = 'iris'
 
@@ -15,7 +15,7 @@ ext {
     siteUrl = 'https://github.com/RoRoche/Iris'
     gitUrl = 'https://github.com:RoRoche/Iris.git'
 
-    libraryVersion = '0.0.3'
+    libraryVersion = '0.0.4'
 
     developerId = 'RoRoche'
     developerName = 'Romain Rochegude'
