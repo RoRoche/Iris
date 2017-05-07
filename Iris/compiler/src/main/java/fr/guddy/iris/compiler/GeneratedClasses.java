@@ -48,12 +48,17 @@ public final class GeneratedClasses {
         }
     }
 
-    private void appendResultAsFieldAndGetter(final TypeSpec.Builder pClassBuilder, final ExecutableElement pMethod) {
-        // Field
+    private TypeName resultType(final ExecutableElement pMethod) {
         final DeclaredType lReturnType = (DeclaredType)pMethod.getReturnType();
         final TypeMirror lTypeMirror = lReturnType.getTypeArguments().get(0);
+        return TypeName.get(lTypeMirror);
+    }
+
+    private void appendResultAsFieldAndGetter(final TypeSpec.Builder pClassBuilder, final ExecutableElement pMethod) {
+        final TypeName lResultType = resultType(pMethod);
+        // Field
         final FieldSpec lFieldSpec = FieldSpec.builder(
-                TypeName.get(lTypeMirror),
+                lResultType,
                 "mResult",
                 Modifier.PRIVATE, Modifier.TRANSIENT)
                 .build();
@@ -62,7 +67,7 @@ public final class GeneratedClasses {
         // Getter
         final MethodSpec.Builder lConstructorSpec = MethodSpec.methodBuilder("getResult")
                 .addModifiers(Modifier.PUBLIC)
-                .returns(TypeName.get(lTypeMirror))
+                .returns(lResultType)
                 .addStatement("return mResult");
 
         pClassBuilder.addMethod(lConstructorSpec.build());
@@ -97,7 +102,7 @@ public final class GeneratedClasses {
 
         final CodeBlock.Builder lCodeBlock = CodeBlock.builder();
 
-        lCodeBlock.add("mResult = get$N().$N(", pMethod.getEnclosingElement().getSimpleName(), pMethod.getSimpleName());
+        lCodeBlock.add("mResponse = get$N().$N(", pMethod.getEnclosingElement().getSimpleName(), pMethod.getSimpleName());
         final Iterator<? extends VariableElement> lIterator = pMethod.getParameters().iterator();
         while (lIterator.hasNext()) {
             final VariableElement lParamElement = lIterator.next();
@@ -106,7 +111,8 @@ public final class GeneratedClasses {
                 lCodeBlock.add(", ");
             }
         }
-        lCodeBlock.add(").execute().body();");
+        lCodeBlock.add(").execute();\n");
+        lCodeBlock.addStatement("mResult = mResponse.body()");
 
         lMethodSpec.addCode(lCodeBlock.build());
 
@@ -130,9 +136,10 @@ public final class GeneratedClasses {
 
     private void appendEventClass(final String pClassName, final TypeSpec.Builder pClassBuilder, final ExecutableElement pMethod) {
         final String lClassName = String.format("EventQuery%sDidFinish", WordUtils.capitalize(pMethod.getSimpleName().toString()));
+        final ParameterizedTypeName lSuperClass = ParameterizedTypeName.get(ClassName.get("fr.guddy.iris", "AbstractEventQueryDidFinish"), ClassName.bestGuess(pClassName));
         final TypeSpec.Builder lClassBuilder = TypeSpec.classBuilder(lClassName)
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
-                .superclass(ParameterizedTypeName.get(ClassName.get("fr.guddy.iris", "AbstractEventQueryDidFinish"), ClassName.bestGuess(pClassName)));
+                .superclass(lSuperClass);
 
         appendEventClassConstructor(pClassName, lClassBuilder, pMethod);
 
@@ -162,9 +169,11 @@ public final class GeneratedClasses {
 
         for (final ExecutableElement lMethod: mMethodElements) {
             final String lClassName = String.format("AbstractQuery%s", WordUtils.capitalize(lMethod.getSimpleName().toString()));
+            final ParameterizedTypeName lSuperClass = ParameterizedTypeName.get(ClassName.get("fr.guddy.iris", "AbstractQuery"), resultType(lMethod));
+
             final TypeSpec.Builder lClassBuilder = TypeSpec.classBuilder(lClassName)
                     .addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT)
-                    .superclass(ClassName.get("fr.guddy.iris", "AbstractQuery"));
+                    .superclass(lSuperClass);
 
             appendParametersAsFinalPublicFields(lClassBuilder, lMethod);
             appendResultAsFieldAndGetter(lClassBuilder, lMethod);

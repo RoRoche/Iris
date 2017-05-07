@@ -20,8 +20,8 @@ repositories {
 }
 
 dependencies {
-    compile 'fr.guddy.iris:iris:0.0.2'
-    annotationProcessor 'fr.guddy.iris:compiler:0.0.2'
+    compile 'fr.guddy.iris:iris:0.0.3'
+    annotationProcessor 'fr.guddy.iris:compiler:0.0.3'
 }
 ```
 
@@ -39,7 +39,7 @@ public interface ApiService {
 - The annotation processor will generate the following class:
 
 ```java
-public abstract class AbstractQueryListRepos extends AbstractQuery {
+public abstract class AbstractQueryListRepos extends AbstractQuery<List<RepoDTO>> {
   public final String user;
 
   private transient List<RepoDTO> mResult;
@@ -55,7 +55,9 @@ public abstract class AbstractQueryListRepos extends AbstractQuery {
 
   @Override
   protected void execute() throws Throwable {
-    mResult = getApiService().listRepos(user).execute().body();}
+    mResponse = getApiService().listRepos(user).execute();
+    mResult = mResponse.body();
+  }
 
   @Override
   protected void onQueryDidFinish() {
@@ -102,7 +104,7 @@ public class QueryListRepos extends AbstractQueryListRepos {
 - Subclass `AbstractQuery`
 
 ```java
-public class QueryGetRepos extends AbstractQuery {
+public class QueryGetRepos extends AbstractQuery<List<RepoDTO>> {
 
     public final String user;
 
