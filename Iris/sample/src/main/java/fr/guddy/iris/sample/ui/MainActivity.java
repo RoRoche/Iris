@@ -1,10 +1,10 @@
 package fr.guddy.iris.sample.ui;
 
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 
-import com.birbit.android.jobqueue.JobManager;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -17,6 +17,7 @@ import fr.guddy.iris.sample.BuildConfig;
 import fr.guddy.iris.sample.IrisApplication;
 import fr.guddy.iris.sample.R;
 import fr.guddy.iris.sample.networking.AbstractQueryListRepos;
+import fr.guddy.iris.sample.networking.ApiServiceQueryFactory;
 import fr.guddy.iris.sample.networking.queries.QueryListRepos;
 import hugo.weaving.DebugLog;
 
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     @Inject
     public EventBus eventBus;
     @Inject
-    public JobManager jobManager;
+    public ApiServiceQueryFactory queryFactory;
     //endregion
 
     //region Lifecycle
@@ -50,15 +51,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        jobManager.addJobInBackground(new QueryListRepos("RoRoche"));
-    }
-
-    @Override
     protected void onStop() {
         super.onStop();
         eventBus.unregister(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (queryFactory.startAbstractQueryListRepos(new QueryListRepos("RoRoche"))) {
+            Snackbar.make(findViewById(R.id.MainActivity_ConstraintLayout), R.string.query_started, Snackbar.LENGTH_LONG)
+                    .show();
+        } else {
+            Snackbar.make(findViewById(R.id.MainActivity_ConstraintLayout), R.string.network_unavailable, Snackbar.LENGTH_LONG)
+                    .show();
+        }
     }
     //endregion
 

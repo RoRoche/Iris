@@ -20,12 +20,12 @@ repositories {
 }
 
 dependencies {
-    compile 'fr.guddy.iris:iris:0.0.4'
-    annotationProcessor 'fr.guddy.iris:compiler:0.0.4'
+    compile 'fr.guddy.iris:iris:0.0.6'
+    annotationProcessor 'fr.guddy.iris:compiler:0.0.6'
 }
 ```
 
-## How to use compiler
+## How to use the Iris compiler
 
 - Create your retrofit interface as usual
 
@@ -36,7 +36,7 @@ public interface ApiService {
 }
 ```
 
-- The annotation processor will generate the following class:
+- The annotation processor will generate the following query class:
 
 ```java
 public abstract class AbstractQueryListRepos extends AbstractQuery<List<RepoDTO>> {
@@ -73,6 +73,20 @@ public abstract class AbstractQueryListRepos extends AbstractQuery<List<RepoDTO>
 }
 ```
 
+- The annotation processor will generate the following query class:
+
+```java
+public class ApiServiceQueryFactory extends AbstractQueryFactory {
+  public ApiServiceQueryFactory(final JobManager pJobManager, final MerlinsBeard pMerlinsBeard) {
+    super(pJobManager, pMerlinsBeard);
+  }
+
+  public boolean startAbstractQueryListRepos(final AbstractQueryListRepos pQuery) {
+    return startQuery(pQuery);
+  }
+}
+```
+
 - now just subclass `AbstractQueryListRepos` as follows to provide the `ApiService` instance and deal with query ending:
 
 ```java
@@ -99,7 +113,17 @@ public class QueryListRepos extends AbstractQueryListRepos {
 }
 ```
 
-## How to use `AbstractQuery` standalone
+- start the query using the factory and test if it's return `true` or `false`:
+
+```java
+if(queryFactory.startAbstractQueryListRepos(new QueryListRepos("RoRoche"))) {
+  // query started
+} else {
+  // no network and not a persistent query
+}
+```
+
+## How to use Iris standalone (i.e., without its compiler)
 
 - Subclass `AbstractQuery`
 
@@ -135,10 +159,18 @@ public static final class EventQueryGetReposDidFinish extends AbstractEventQuery
 }
 ```
 
-- Add query to a `JobManager`:
+- Subclass `AbstractQueryFactory` :
 
 ```java
-jobManager.addJobInBackground(new QueryGetRepos("RoRoche"));
+public class QueryFactory extends AbstractQueryFactory {
+    public QueryFactory(final JobManager pJobManager, final MerlinsBeard pMerlinsBeard) {
+        super(pJobManager, pMerlinsBeard);
+    }
+
+    public boolean startQueryListRepos(@NonNull final String pUser) {
+        return startQuery(new QueryListRepos(pUser));
+    }
+}
 ```
 
 ## Benefits

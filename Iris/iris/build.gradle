@@ -4,7 +4,7 @@ ext {
     orgName = 'guddy'
     bintrayRepo = 'maven'
     bintrayName = 'iris'
-    versionName = '0.0.4'
+    versionName = rootProject.ext.irisVersion
 
     publishedGroupId = 'fr.guddy.iris'
     libraryName = 'iris'
@@ -15,7 +15,7 @@ ext {
     siteUrl = 'https://github.com/RoRoche/Iris'
     gitUrl = 'https://github.com:RoRoche/Iris.git'
 
-    libraryVersion = '0.0.4'
+    libraryVersion = rootProject.ext.irisVersion
 
     developerId = 'RoRoche'
     developerName = 'Romain Rochegude'
@@ -57,6 +57,8 @@ dependencies {
     compile('com.birbit:android-priority-jobqueue:2.0.1', {
         exclude group: 'com.android.support', module: 'support-v4'
     })
+    // merlin (network status)
+    compile 'com.novoda:merlin:0.10.0'
 }
 
 apply from: 'https://raw.githubusercontent.com/RoRoche/Iris/master/Iris/installv1.gradle'

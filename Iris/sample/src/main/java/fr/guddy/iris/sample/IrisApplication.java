@@ -3,9 +3,9 @@ package fr.guddy.iris.sample;
 import android.app.Application;
 
 import fr.guddy.iris.sample.di.ApplicationComponent;
+import fr.guddy.iris.sample.di.DaggerApplicationComponent;
 import fr.guddy.iris.sample.di.modules.ApplicationModule;
 import fr.guddy.iris.sample.di.modules.BusModule;
-import fr.guddy.iris.sample.di.DaggerApplicationComponent;
 import fr.guddy.iris.sample.di.modules.NetworkingModule;
 
 public class IrisApplication extends Application {

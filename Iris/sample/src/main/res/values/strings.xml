@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Iris</string>
+    <string name="query_started">Query started</string>
+    <string name="network_unavailable">Network unavailable</string>
 </resources>

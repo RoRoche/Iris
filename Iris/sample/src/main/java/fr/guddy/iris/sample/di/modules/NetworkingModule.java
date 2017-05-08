@@ -5,12 +5,14 @@ import android.support.annotation.NonNull;
 
 import com.birbit.android.jobqueue.JobManager;
 import com.birbit.android.jobqueue.config.Configuration;
+import com.novoda.merlin.MerlinsBeard;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import fr.guddy.iris.sample.networking.ApiService;
+import fr.guddy.iris.sample.networking.ApiServiceQueryFactory;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -42,6 +44,18 @@ public class NetworkingModule {
                 .consumerKeepAlive(120) //wait 2 minutes
                 .build();
         return new JobManager(loConfiguration);
+    }
+
+    @Singleton
+    @Provides
+    public MerlinsBeard providesMerlinsBeard(@NonNull final Context pContext) {
+        return MerlinsBeard.from(pContext);
+    }
+
+    @Singleton
+    @Provides
+    public ApiServiceQueryFactory providesQueryFactory(@NonNull final JobManager pJobManager, @NonNull final MerlinsBeard pMerlinsBeard) {
+        return new ApiServiceQueryFactory(pJobManager, pMerlinsBeard);
     }
     //endregion
 }
