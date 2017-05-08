@@ -8,6 +8,19 @@ Convenient wrapper library to perform network queries using Retrofit and Android
 
 ![logo](https://raw.githubusercontent.com/RoRoche/Iris/master/assets/logo.png)
 
+<!-- run the following command line: markdown-toc -i README.md -->
+
+<!-- toc -->
+
+- [Dependency](#dependency)
+- [How to use the Iris compiler](#how-to-use-the-iris-compiler)
+- [How to use Iris standalone (i.e., without its compiler)](#how-to-use-iris-standalone-ie-without-its-compiler)
+- [Benefits](#benefits)
+- [TODO](#todo)
+- [Logo credits](#logo-credits)
+
+<!-- tocstop -->
+
 ## Dependency
 
 In your project `build.gradle` file:
