@@ -25,5 +25,5 @@ task clean(type: Delete) {
 }
 
 ext {
-    irisVersion = '0.0.6'
+    irisVersion = '0.0.7'
 }

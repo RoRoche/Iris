@@ -27,6 +27,7 @@ public class GeneratedQueryClass {
     private final String mClassName;
     private final TypeSpec.Builder mClassBuilder;
     private final String mEventClassName;
+    private final TypeName mResultType;
     //endregion
 
     //region Constructor
@@ -34,6 +35,7 @@ public class GeneratedQueryClass {
         mMethod = pMethod;
         mClassName = String.format("AbstractQuery%s", WordUtils.capitalize(pMethod.getSimpleName().toString()));
         mEventClassName = String.format("EventQuery%sDidFinish", WordUtils.capitalize(mMethod.getSimpleName().toString()));
+        mResultType = resultType(mMethod);
 
         final ParameterizedTypeName lSuperClass = ParameterizedTypeName.get(ClassName.get("fr.guddy.iris", "AbstractQuery"), resultType(pMethod));
 
@@ -84,10 +86,13 @@ public class GeneratedQueryClass {
     }
 
     private void appendResultAsFieldAndGetter() {
-        final TypeName lResultType = resultType(mMethod);
+        if(mResultType.equals(TypeName.VOID.box())) {
+            return;
+        }
+
         // Field
         final FieldSpec lFieldSpec = FieldSpec.builder(
-                lResultType,
+                mResultType,
                 "mResult",
                 Modifier.PRIVATE, Modifier.TRANSIENT)
                 .build();
@@ -96,7 +101,7 @@ public class GeneratedQueryClass {
         // Getter
         final MethodSpec.Builder lConstructorSpec = MethodSpec.methodBuilder("getResult")
                 .addModifiers(Modifier.PUBLIC)
-                .returns(lResultType)
+                .returns(mResultType)
                 .addStatement("return mResult");
 
         mClassBuilder.addMethod(lConstructorSpec.build());
@@ -142,7 +147,11 @@ public class GeneratedQueryClass {
             }
         }
         lCodeBlock.add(").execute();\n");
-        lCodeBlock.addStatement("mResult = mResponse.body()");
+        if(mResultType.equals(TypeName.VOID.box())) {
+            lCodeBlock.addStatement("mResponse.body()");
+        } else {
+            lCodeBlock.addStatement("mResult = mResponse.body()");
+        }
 
         lMethodSpec.addCode(lCodeBlock.build());
 

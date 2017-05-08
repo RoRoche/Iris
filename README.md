@@ -16,16 +16,27 @@ Convenient wrapper library to perform network queries using Retrofit and Android
 - [How to use the Iris compiler](#how-to-use-the-iris-compiler)
 - [How to use Iris standalone (i.e., without its compiler)](#how-to-use-iris-standalone-ie-without-its-compiler)
 - [Benefits](#benefits)
-- [TODO](#todo)
 - [Logo credits](#logo-credits)
 
 <!-- tocstop -->
 
 ## Dependency
 
-In your project `build.gradle` file:
+In the top-level `build.gradle` file:
 
 ```groovy
+buildscript {
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    }
+}
+```
+
+In the project `build.gradle` file:
+
+```groovy
+apply plugin: 'com.neenbedankt.android-apt'
+
 repositories {
     maven {
         url 'https://dl.bintray.com/guddy/maven/'
@@ -33,14 +44,14 @@ repositories {
 }
 
 dependencies {
-    compile 'fr.guddy.iris:iris:0.0.6'
-    annotationProcessor 'fr.guddy.iris:compiler:0.0.6'
+    compile 'fr.guddy.iris:iris:0.0.7'
+    apt 'fr.guddy.iris:compiler:0.0.7'
 }
 ```
 
 ## How to use the Iris compiler
 
-- Create your retrofit interface as usual
+- Create a retrofit interface as usual
 
 ```java
 public interface ApiService {
@@ -48,6 +59,8 @@ public interface ApiService {
     Call<List<RepoDTO>> listRepos(@NonNull @Path("user") final String user);
 }
 ```
+
+Supported annotations are `@DELETE`, `@GET`, `@HEADER`, `@HTTP`, `@PATCH`, `@POST`, `@PUT`.
 
 - The annotation processor will generate the following query class:
 
@@ -188,12 +201,12 @@ public class QueryFactory extends AbstractQueryFactory {
 
 ## Benefits
 
-- DI ready
-- Event-buses ready
-
-## TODO
-
-- support `@POST` and `@PUT` from retrofit
+- processing the retrofit interface, the compiler generates all of the boilerplate code
+- developer can focus on the specific job to do when the HTTP request is finished (for example: save data to local storage, by overriding the `execute` method)
+- the "Iris" library can be used without its compiler
+- it improves the network layer with a normalized structure
+- it's DI ready (cf. sample app using Dagger2)
+- it's Event-buses ready (cf. sample app using greenrobot's EventBus)
 
 ## Logo credits
 
